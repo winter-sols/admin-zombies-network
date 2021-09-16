@@ -1,0 +1,56 @@
+@import "../../styles/variables.scss";
+
+.input-field {
+  position: relative;
+  padding: 20px 4px 4px;
+
+  & > label {
+    position: absolute;
+    font-size: 16px;
+    padding: 0 2px;
+    line-height: 1;
+    bottom: 18px;
+    left: 12px;
+    transition: 0.3s;
+    color: rgba($color: $black, $alpha: 0.6);
+    cursor: text;
+  }
+
+  & > input[type="text"],
+  & > input[type="password"] {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid rgba($color: $black, $alpha: 0.2);
+    color: rgba($color: $green, $alpha: 0.8);
+    border-radius: 16px;
+
+    &:focus {
+      color: rgba($color: $green, $alpha: 0.8);
+      text-shadow: 0 0 2px rgba($color: $green, $alpha: 0.6);
+      border-color: rgba($color: $green, $alpha: 0.6);
+
+      & + label {
+        color: $green;
+        bottom: 42px;
+        font-size: 12px !important;
+        background-color: $white;
+        text-shadow: 0 0 4px rgba($color: $green, $alpha: 0.6);
+      }
+    }
+  }
+}
+
+.focus {
+  color: rgba($color: $green, $alpha: 0.8);
+  text-shadow: 0 0 2px rgba($color: $green, $alpha: 0.6);
+  border-color: rgba($color: $green, $alpha: 0.6) !important;
+
+  & + label {
+    color: $green;
+    bottom: 42px;
+    font-size: 12px !important;
+    background-color: $white;
+    text-shadow: 0 0 4px rgba($color: $green, $alpha: 0.6);
+  }
+}

@@ -1,0 +1,29 @@
+@import "../../styles/variables.scss";
+
+.button {
+  cursor: pointer;
+  padding: 20px 4px 4px;
+
+  & > div {
+    width: 100%;
+    padding: 12px 24px;
+    border-radius: 16px;
+    border: 2px solid rgba($color: $green, $alpha: 0.6);
+    text-align: center;
+    color: $green;
+    text-shadow: 0 0 2px rgba($color: $green, $alpha: 0.6);
+    transition: 0.3s;
+
+    &:hover {
+      color: $white;
+      background-color: rgba($color: $green, $alpha: 0.7);
+      text-shadow: 0 0 2px rgba($color: $white, $alpha: 0.6);
+      border-color: $white;
+    }
+
+    &:active {
+      background-color: rgba($color: $green, $alpha: 1);
+      text-shadow: 0 0 2px rgba($color: $white, $alpha: 0.6);
+    }
+  }
+}

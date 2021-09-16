@@ -1,0 +1,115 @@
+@import "../../styles/variables.scss";
+
+.login {
+  position: relative;
+  width: 100%;
+  padding: 32px;
+  height: 100vh;
+  gap: 64px;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+
+  &-title {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 120px;
+    margin: 0 120px 0 0;
+    padding: 24px;
+    background-color: $white;
+    box-shadow: 0 0 8px rgba($color: $black, $alpha: 0.6);
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    & > span {
+      color: $green;
+      text-shadow: 0 0 4px rgba($color: $green, $alpha: 0.6);
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    & > p {
+      margin: 0;
+      font-size: 12px;
+    }
+
+    & > div {
+      font-size: 14px;
+      text-decoration: underline;
+      color: rgba($color: $blue, $alpha: 0.7);
+      cursor: pointer;
+
+      &:hover {
+        color: rgba($color: $blue, $alpha: 1);
+      }
+    }
+  }
+
+  &-decoration {
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
+    box-shadow: inset 0 0 8px rgba($color: $black, $alpha: 0.7);
+    background-color: $white;
+    background-image: url("../../resources/background.png");
+    background-size: cover;
+    background-position: center center;
+  }
+
+  &-wrap {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+    & > div {
+      width: 100%;
+      max-width: 360px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .login {
+    flex-direction: column !important;
+
+    &-title {
+      margin: 0 0 120px 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .login {
+    padding: 16px;
+    gap: 32px;
+
+    &-title {
+      width: 180px;
+      height: 180px;
+      gap: 8px;
+
+      & > span {
+        font-size: 24px;
+      }
+
+      & > p {
+        font-size: 10px;
+      }
+
+      & > div {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .login {
+    padding: 8px;
+    gap: 32px;
+  }
+}
