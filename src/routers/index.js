@@ -8,7 +8,7 @@ import { ROUTERS } from "configurations/routers"
 const Router = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path={ROUTERS.HOME} render={() => <Auth />} />
+      <Route exact path={ROUTERS.HOME} render={() => <Dashboard />} />
       <Route path={ROUTERS.AUTH} component={Auth} />
       <Route path={ROUTERS.DASHBOARD} component={Dashboard} />
     </Switch>
