@@ -21,10 +21,10 @@ const Dashboard = () => {
     docSnap.empty ||
       setInfo((prev) => ({ ...prev, presale: docSnap.docs[0].data().value }))
 
-    let q1 = query(collection(db, "configs"), where("name", "==", "favourite"))
-    let docSnap1 = await getDocs(q1)
-    docSnap1.empty ||
-      setInfo((prev) => ({ ...prev, favourite: docSnap1.docs[0].data().value }))
+    q = query(collection(db, "configs"), where("name", "==", "favourite"))
+    docSnap = await getDocs(q)
+    docSnap.empty ||
+      setInfo((prev) => ({ ...prev, favourite: docSnap.docs[0].data().value }))
   }, [])
 
   const handleChange = (e) => {
