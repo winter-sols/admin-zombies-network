@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react"
 import db from "../../helpers/firebase"
-import { collection, getDocs, query, where } from "firebase/firestore"
+import {
+  collection,
+  getDocs,
+  addDoc,
+  setDoc,
+  doc,
+  updateDoc,
+  query,
+  where,
+} from "firebase/firestore"
 
 const Dashboard = () => {
   const [info, setInfo] = useState({})
@@ -9,24 +18,26 @@ const Dashboard = () => {
   useEffect(async () => {
     let q = query(collection(db, "configs"), where("name", "==", "presale"))
     let docSnap = await getDocs(q)
-    if (!docSnap.empty) {
-      setInfo({ ...info, presale: docSnap.docs[0].data().value })
-    }
-    q = query(collection(db, "configs"), where("name", "==", "favourite"))
-    docSnap = await getDocs(q)
-    if (!docSnap.empty) {
-      setInfo({ ...info, favourite: docSnap.docs[0].data().value })
-    }
-  })
+    docSnap.empty ||
+      setInfo((prev) => ({ ...prev, presale: docSnap.docs[0].data().value }))
+
+    let q1 = query(collection(db, "configs"), where("name", "==", "favourite"))
+    let docSnap1 = await getDocs(q1)
+    docSnap1.empty ||
+      setInfo((prev) => ({ ...prev, favourite: docSnap1.docs[0].data().value }))
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
     checkValidity(name, value)
+
     switch (name) {
       case "presale":
         setInfo({ ...info, presale: value })
+        break
       case "favourite":
         setInfo({ ...info, favourite: value })
+        break
     }
   }
 
@@ -34,22 +45,51 @@ const Dashboard = () => {
     switch (name) {
       case "presale":
         if (!value) setErrors({ ...errors, presale: "Enter value" })
-        else setErrors({ ...errors, presale: "" })
+        else delete errors["presale"]
         break
       case "favourite":
         if (!value) setErrors({ ...errors, favourite: "Enter value" })
         else delete errors["favourite"]
         break
+      default:
+        checkValidity("presale", info.presale)
+        checkValidity("favourite", info.favourite)
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    checkValidity()
     if (!Object.keys(errors).length) {
-      alert("submitted")
-    } else {
-      alert("not sumitted")
+      let q = query(collection(db, "configs"), where("name", "==", "presale"))
+      let docSnap = await getDocs(q)
+      if (docSnap.empty) {
+        const newConfig = doc(collection(db, "configs"))
+        await setDoc(newConfig, {
+          name: "presale",
+          value: info.presale,
+        })
+      } else {
+        updateDoc(docSnap.docs[0].ref, {
+          value: info.presale,
+        })
+      }
+
+      q = query(collection(db, "configs"), where("name", "==", "favourite"))
+      docSnap = await getDocs(q)
+      if (docSnap.empty) {
+        const newConfig = doc(collection(db, "configs"))
+        await setDoc(newConfig, {
+          name: "favourite",
+          value: info.favourite,
+        })
+      } else {
+        updateDoc(docSnap.docs[0].ref, {
+          value: info.favourite,
+        })
+      }
     }
+    return false
   }
 
   return (
@@ -77,6 +117,7 @@ const Dashboard = () => {
               value={info.presale || ""}
               type="datetime-local"
               name="presale"
+              id="presale"
               onChange={handleChange}
             />
           </div>
