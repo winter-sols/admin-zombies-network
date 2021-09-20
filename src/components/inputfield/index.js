@@ -1,12 +1,12 @@
 import { useState } from "react"
 import "./style.scss"
 
-const InputField = ({ name, ...restProps }) => {
+const InputField = ({ name, changeHandler, ...restProps }) => {
   const [value, setValue] = useState("")
 
   const onChangeHandler = (e) => {
     e.preventDefault()
-
+    changeHandler(e)
     setValue(e.target.value)
   }
 

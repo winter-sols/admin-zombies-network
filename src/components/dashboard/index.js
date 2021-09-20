@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import db from "../../helpers/firebase"
+import { getLoggedIn } from "../../helpers/credentials"
+import { useHistory } from "react-router-dom"
 import {
   collection,
   getDocs,
@@ -14,8 +16,10 @@ import {
 const Dashboard = () => {
   const [info, setInfo] = useState({})
   const [errors, setErrors] = useState({})
+  const history = useHistory()
 
   useEffect(async () => {
+    if (!getLoggedIn()) history.push("login")
     let q = query(collection(db, "configs"), where("name", "==", "presale"))
     let docSnap = await getDocs(q)
     docSnap.empty ||

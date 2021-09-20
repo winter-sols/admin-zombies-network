@@ -1,9 +1,9 @@
 import { useState } from "react"
 import "./style.scss"
 
-const Button = ({ children, ...restProps }) => {
+const Button = ({ children, clickHandler, ...restProps }) => {
   return (
-    <div className="button" {...restProps}>
+    <div onClick={clickHandler} className="button" {...restProps}>
       <div>{children}</div>
     </div>
   )
