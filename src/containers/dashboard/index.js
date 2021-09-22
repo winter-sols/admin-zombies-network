@@ -16,21 +16,23 @@ import Navbar from "components/Navbar"
 import "./style.scss"
 
 const Dashboard = () => {
-  const [info, setInfo] = useState({})
+  const [info, setInfo] = useState({
+    text1: "",
+    text2: "",
+    check1: true,
+    presale: null,
+  })
   const [errors, setErrors] = useState({})
   const history = useHistory()
 
   useEffect(async () => {
     if (!getLoggedIn()) history.push("login")
-    let q = query(collection(db, "configs"), where("name", "==", "presale"))
-    let docSnap = await getDocs(q)
-    docSnap.empty ||
-      setInfo((prev) => ({ ...prev, presale: docSnap.docs[0].data().value }))
-
-    q = query(collection(db, "configs"), where("name", "==", "favourite"))
-    docSnap = await getDocs(q)
-    docSnap.empty ||
-      setInfo((prev) => ({ ...prev, favourite: docSnap.docs[0].data().value }))
+    const querySnapshot = await getDocs(collection(db, "configs"))
+    for (const item of querySnapshot.docs) {
+      const itemData = item.data()
+      if ("value" in itemData)
+        setInfo((prev) => ({ ...prev, [item.id]: itemData.value }))
+    }
   }, [])
 
   const doLogout = (e) => {
@@ -39,32 +41,24 @@ const Dashboard = () => {
   }
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    checkValidity(name, value)
-
-    switch (name) {
-      case "presale":
-        setInfo({ ...info, presale: value })
-        break
-      case "favourite":
-        setInfo({ ...info, favourite: value })
-        break
+    const { name, value, checked } = e.target
+    if (!name.startsWith("check")) {
+      setInfo({ ...info, [name]: checked })
+    } else {
+      setInfo({ ...info, [name]: checked })
     }
+    checkValidity(name, value)
   }
 
   const checkValidity = (name, value) => {
-    switch (name) {
-      case "presale":
-        if (!value) setErrors({ ...errors, presale: "Enter value" })
-        else delete errors["presale"]
-        break
-      case "favourite":
-        if (!value) setErrors({ ...errors, favourite: "Enter value" })
-        else delete errors["favourite"]
-        break
-      default:
-        checkValidity("presale", info.presale)
-        checkValidity("favourite", info.favourite)
+    if (typeof name === "undefined") {
+      for (const [key, value] of Object.entries(info)) {
+        checkValidity(key, value)
+      }
+    } else {
+      if (typeof value == "string" && value == "")
+        setErrors({ ...errors, [name]: "Enter value" })
+      else delete errors[name]
     }
   }
 
@@ -72,33 +66,11 @@ const Dashboard = () => {
     e.preventDefault()
     checkValidity()
     if (!Object.keys(errors).length) {
-      let q = query(collection(db, "configs"), where("name", "==", "presale"))
-      let docSnap = await getDocs(q)
-      if (docSnap.empty) {
-        const newConfig = doc(collection(db, "configs"))
-        await setDoc(newConfig, {
-          name: "presale",
-          value: info.presale,
+      Object.entries(info).map(function (value, key) {
+        setDoc(doc(db, "configs", value[0]), {
+          value: value[1],
         })
-      } else {
-        updateDoc(docSnap.docs[0].ref, {
-          value: info.presale,
-        })
-      }
-
-      q = query(collection(db, "configs"), where("name", "==", "favourite"))
-      docSnap = await getDocs(q)
-      if (docSnap.empty) {
-        const newConfig = doc(collection(db, "configs"))
-        await setDoc(newConfig, {
-          name: "favourite",
-          value: info.favourite,
-        })
-      } else {
-        updateDoc(docSnap.docs[0].ref, {
-          value: info.favourite,
-        })
-      }
+      })
     }
     return false
   }
@@ -119,11 +91,30 @@ const Dashboard = () => {
           </ul>
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="favourite">Favourite Food: </label>
+              <label htmlFor="text1">Text 1: </label>
+              <textarea
+                value={info.text1 || ""}
+                id="text1"
+                name="text1"
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            <div>
+              <label htmlFor="text2">Text 2: </label>
+              <textarea
+                value={info.text2 || ""}
+                id="text2"
+                name="text2"
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            <div>
+              <label htmlFor="check1">check1: </label>
               <input
-                value={info.favourite || ""}
-                id="favourite"
-                name="favourite"
+                type="checkbox"
+                id="check1"
+                name="check1"
+                checked={info.check1}
                 onChange={handleChange}
               />
             </div>
