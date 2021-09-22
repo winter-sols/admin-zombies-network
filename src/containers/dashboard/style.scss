@@ -1,0 +1,10 @@
+.dashboard {
+  width: 100%;
+
+  &-sidebar {
+    flex: 1 1 10%;
+  }
+  &-main {
+    flex: 1 1 90%;
+  }
+}

@@ -11,6 +11,9 @@ import {
   query,
   where,
 } from "firebase/firestore"
+import Sidebar from "components/sidebar"
+import Navbar from "components/Navbar"
+import "./style.scss"
 
 const Dashboard = () => {
   const [info, setInfo] = useState({})
@@ -29,6 +32,11 @@ const Dashboard = () => {
     docSnap.empty ||
       setInfo((prev) => ({ ...prev, favourite: docSnap.docs[0].data().value }))
   }, [])
+
+  const doLogout = (e) => {
+    localStorage.removeItem("zombie_login")
+    history.push("login")
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -96,36 +104,42 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard flex flex-column">
-      <div className="dashboard-sidebar"></div>
-      <div className="dashboard-main">
-        <ul style={{ listStyleType: "none" }}>
-          {Object.entries(errors).map(function (value, key) {
-            if (value[1]) return <li key={key}>{value[0] + ": " + value[1]}</li>
-          })}
-        </ul>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="favourite">Favourite Food: </label>
-            <input
-              value={info.favourite || ""}
-              id="favourite"
-              name="favourite"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="presale">Presale DateTime: </label>
-            <input
-              value={info.presale || ""}
-              type="datetime-local"
-              name="presale"
-              id="presale"
-              onChange={handleChange}
-            />
-          </div>
-          <input type="submit" value="Submit" />
-        </form>
+    <div className="dashboard">
+      <Navbar clickHandler={doLogout} />
+      <div className="flex">
+        <div className="dashboard-sidebar">
+          <Sidebar />
+        </div>
+        <div className="dashboard-main">
+          <ul style={{ listStyleType: "none" }}>
+            {Object.entries(errors).map(function (value, key) {
+              if (value[1])
+                return <li key={key}>{value[0] + ": " + value[1]}</li>
+            })}
+          </ul>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="favourite">Favourite Food: </label>
+              <input
+                value={info.favourite || ""}
+                id="favourite"
+                name="favourite"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="presale">Presale DateTime: </label>
+              <input
+                value={info.presale || ""}
+                type="datetime-local"
+                name="presale"
+                id="presale"
+                onChange={handleChange}
+              />
+            </div>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
       </div>
     </div>
   )
