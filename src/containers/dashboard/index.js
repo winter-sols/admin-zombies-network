@@ -20,7 +20,7 @@ const Dashboard = () => {
     text1: "",
     text2: "",
     check1: true,
-    presale: null,
+    presale: "",
   })
   const [errors, setErrors] = useState({})
   const history = useHistory()
@@ -93,7 +93,7 @@ const Dashboard = () => {
             <div>
               <label htmlFor="text1">Text 1: </label>
               <textarea
-                value={info.text1 || ""}
+                value={info.text1}
                 id="text1"
                 name="text1"
                 onChange={handleChange}
@@ -102,7 +102,7 @@ const Dashboard = () => {
             <div>
               <label htmlFor="text2">Text 2: </label>
               <textarea
-                value={info.text2 || ""}
+                value={info.text2}
                 id="text2"
                 name="text2"
                 onChange={handleChange}
@@ -113,6 +113,7 @@ const Dashboard = () => {
               <input
                 type="checkbox"
                 id="check1"
+                value="123"
                 name="check1"
                 checked={info.check1}
                 onChange={handleChange}
@@ -121,7 +122,7 @@ const Dashboard = () => {
             <div>
               <label htmlFor="presale">Presale DateTime: </label>
               <input
-                value={info.presale || ""}
+                value={info.presale}
                 type="datetime-local"
                 name="presale"
                 id="presale"
