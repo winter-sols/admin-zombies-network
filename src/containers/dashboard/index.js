@@ -14,6 +14,7 @@ import {
 import Sidebar from "components/sidebar"
 import Navbar from "components/Navbar"
 import "./style.scss"
+import RoadMap from "components/roadmap"
 
 const Dashboard = () => {
   const [info, setInfo] = useState({
@@ -40,19 +41,55 @@ const Dashboard = () => {
     pte_item_content4: "",
     to_title: "",
     to_subtitle: "",
+    phase1: 1,
+    phase2: 2,
+    phase3: 3,
+    co_title: "",
+    co_subtitle: "",
+    co_heading: "",
+    faq_subtitle: "",
+    faq_heading: "",
+    faq_answer1: "",
+    faq_question1: "",
+    faq_answer2: "",
+    faq_question2: "",
+    faq_answer3: "",
+    faq_question3: "",
+    faq_answer4: "",
+    faq_question4: "",
+    faq_answer5: "",
+    faq_question5: "",
+    faq_answer6: "",
+    faq_question6: "",
+    faq_answer7: "",
+    faq_question7: "",
+    faq_answer8: "",
+    faq_question8: "",
   })
+  const [roadmap, setRoadmap] = useState({})
   const [errors, setErrors] = useState({})
+  const [cnt, setCnt] = useState(0)
   const history = useHistory()
 
   useEffect(async () => {
+    console.log('use effect')
     if (!getLoggedIn()) history.push("login")
-    const querySnapshot = await getDocs(collection(db, "configs"))
-    for (const item of querySnapshot.docs) {
+    const configsSnap = await getDocs(collection(db, "configs"))
+    const roadmapSnap = await getDocs(collection(db, "roadmap"))
+
+    for (const item of configsSnap.docs) {
       const itemData = item.data()
       if ("value" in itemData)
         setInfo((prev) => ({ ...prev, [item.id]: itemData.value }))
     }
-  }, [])
+    for (const item of roadmapSnap.docs) {
+      const itemData = item.data()
+      setRoadmap((prev) => {
+        prev[item.id] = itemData
+        return prev
+      })
+    }
+  }, [cnt])
 
   const doLogout = (e) => {
     localStorage.removeItem("zombie_login")
@@ -347,45 +384,257 @@ const Dashboard = () => {
             <fieldset>
               <legend>Roadmap</legend>
               <div>
-                <label htmlFor="to_subtitle">Tokenomics SubTitle:</label>
-                <textarea
-                  value={info.to_subtitle}
-                  id="to_subtitle"
-                  name="to_subtitle"
-                  onChange={handleChange}
-                ></textarea>
+                <label htmlFor="phase1">Phase1: </label>
+                <select name="phase1" id="phase1" value={info.phase1} onChange={handleChange}>
+                  <option value="1">Graphic Designs Characters & Marketplace</option>
+                  <option value="2">Launch Social + Website</option>
+                  <option value="3">Audit Contract</option>
+                  <option value="4">Marketing / Pre-Sale On UniCrypt</option>
+                  <option value="5">Public Launch On PancakeSwap</option>
+                  <option value="6">Public Launch NFT Battle</option>
+                  <option value="7">Public Launch NFT Marketplace</option>
+                  <option value="8">Coingecko, Coinmarketcap Listing</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="phase2">Phase2: </label>
+                <select name="phase2" id="phase2" value={info.phase2} onChange={handleChange}>
+                  <option value="1">CEX Listing</option>
+                  <option value="2">Public Launch Against Yaki Bosses</option>
+                  <option value="3">Public Launch NFT Farming</option>
+                  <option value="4">Influencer Marketing</option>
+                  <option value="5">Release More ZOAN NFT Characters</option>
+                  <option value="6">ZOMB Training Alpha Version</option>
+                  <option value="7">ZOMB’s Item</option>
+                  <option value="8">Expanding Team</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="phase3">Phase3: </label>
+                <select name="phase3" id="phase3" value={info.phase3} onChange={handleChange}>
+                  <option value="1">Game Studio/Partnerships Expanded</option>
+                  <option value="2">ZOMB Training Beta - Web Version</option>
+                  <option value="3">More Exchanges</option>
+                  <option value="4">ZOMB Dapp Mobile Game (IOS, Android)</option>
+                  <option value="5">Zombies Global Tournament</option>
+                </select>
               </div>
             </fieldset>
 
-            <div>
-              <label htmlFor="text1">Text 1: </label>
-              <textarea
-                value={info.text1}
-                id="text1"
-                name="text1"
-                onChange={handleChange}
-              ></textarea>
-            </div>
-            <div>
-              <label htmlFor="text2">Text 2: </label>
-              <textarea
-                value={info.text2}
-                id="text2"
-                name="text2"
-                onChange={handleChange}
-              ></textarea>
-            </div>
-            <div>
-              <label htmlFor="check1">check1: </label>
-              <input
-                type="checkbox"
-                id="check1"
-                value="123"
-                name="check1"
-                checked={info.check1}
-                onChange={handleChange}
-              />
-            </div>
+            <fieldset>
+              <legend>Community</legend>
+              <div>
+                <label htmlFor="co_title">Title: </label>
+                <input
+                  value={info.co_title}
+                  name="co_title"
+                  id="co_title"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="co_subtitle">Subtitle: </label>
+                <input
+                  value={info.co_subtitle}
+                  name="co_subtitle"
+                  id="co_subtitle"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="co_heading">SubHeading: </label>
+                <input
+                  value={info.co_heading}
+                  name="co_heading"
+                  id="co_heading"
+                  onChange={handleChange}
+                />
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>FAQs</legend>
+              <div>
+                <label htmlFor="faq_question">Title: </label>
+                <input
+                  value={info.faq_question}
+                  name="faq_question"
+                  id="faq_question"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_subtitle">Subtitle: </label>
+                <input
+                  value={info.faq_subtitle}
+                  name="faq_subtitle"
+                  id="faq_subtitle"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_heading">SubHeading: </label>
+                <input
+                  value={info.faq_heading}
+                  name="faq_heading"
+                  id="faq_heading"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_question1">FAQ1 Question: </label>
+                <input
+                  value={info.faq_question1}
+                  name="faq_question1"
+                  id="faq_question1"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_answer1">FAQ1 Answer: </label>
+                <textarea
+                  value={info.faq_answer1}
+                  name="faq_answer1"
+                  id="faq_answer1"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+              
+              <div>
+                <label htmlFor="faq_question2">FAQ2 Question: </label>
+                <input
+                  value={info.faq_question2}
+                  name="faq_question2"
+                  id="faq_question2"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_answer2">FAQ2 Answer: </label>
+                <textarea
+                  value={info.faq_answer2}
+                  name="faq_answer2"
+                  id="faq_answer2"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+              <div>
+                <label htmlFor="faq_question3">FAQ3 Question: </label>
+                <input
+                  value={info.faq_question3}
+                  name="faq_question3"
+                  id="faq_question3"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_answer3">FAQ3 Answer: </label>
+                <textarea
+                  value={info.faq_answer3}
+                  name="faq_answer3"
+                  id="faq_answer3"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+              <div>
+                <label htmlFor="faq_question4">FAQ4 Question: </label>
+                <input
+                  value={info.faq_question4}
+                  name="faq_question4"
+                  id="faq_question4"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_answer4">FAQ4 Answer: </label>
+                <textarea
+                  value={info.faq_answer4}
+                  name="faq_answer4"
+                  id="faq_answer4"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+              <div>
+                <label htmlFor="faq_question5">FAQ5 Question: </label>
+                <input
+                  value={info.faq_question5}
+                  name="faq_question5"
+                  id="faq_question5"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_conten5">FAQ5 Answer: </label>
+                <textarea
+                  value={info.faq_answer5}
+                  name="faq_answer5"
+                  id="faq_answer5"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+              <div>
+                <label htmlFor="faq_question6">FAQ6 Question: </label>
+                <input
+                  value={info.faq_question6}
+                  name="faq_question6"
+                  id="faq_question6"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_answer6">FAQ6 Answer: </label>
+                <textarea
+                  value={info.faq_answer6}
+                  name="faq_answer6"
+                  id="faq_answer6"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+              <div>
+                <label htmlFor="faq_question7">FAQ7 Question: </label>
+                <input
+                  value={info.faq_question7}
+                  name="faq_question7"
+                  id="faq_question7"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_answer7">FAQ7 Answer: </label>
+                <textarea
+                  value={info.faq_answer7}
+                  name="faq_answer7"
+                  id="faq_answer7"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+              <div>
+                <label htmlFor="faq_question8">FAQ8 Question: </label>
+                <input
+                  value={info.faq_question8}
+                  name="faq_question8"
+                  id="faq_question8"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="faq_answer8">FAQ8 Answer: </label>
+                <textarea
+                  value={info.faq_answer8}
+                  name="faq_answer8"
+                  id="faq_answer8"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+            </fieldset>
+
             <div>
               <label htmlFor="presale">Presale DateTime: </label>
               <input
