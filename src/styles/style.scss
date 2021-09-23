@@ -4,6 +4,7 @@
 html,
 body {
   width: 100%;
+  height: 100%;
   border: 0;
   margin: 0;
   padding: 0;
@@ -13,15 +14,14 @@ body {
 
 #root {
   width: 100%;
+  height: 100%;
   display: flex;
   display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6, BB7 */
   display: -ms-flexbox; /* TWEENER - IE 10 */
   display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  // padding: 0 calc((100% - 1440px) / 2);
 }
 
 * {
-  color: $black;
   font-family: "Poppins", sans-serif;
   outline: 0;
   box-sizing: border-box;

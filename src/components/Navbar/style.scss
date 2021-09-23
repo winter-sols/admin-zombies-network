@@ -1,9 +1,33 @@
-.navbar {
-  height: 50px;
-  background-color: aqua;
+@import "../../styles/variables.scss";
 
-  &-logout {
-    margin-left: auto;
-    margin-right: 15px;
+.navbar {
+  width: 100%;
+  padding: 16px;
+  background-color: #222222;
+  align-items: center;
+  justify-content: space-between;
+
+  & > div {
+    color: $green;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  & > button {
+    width: 96px;
+    font-size: 16px;
+    padding: 8px 0;
+    border: 0;
+    border-radius: 30px;
+    font-weight: bold;
+    color: $white;
+    background-color: $green;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      background-color: $red;
+    }
   }
 }

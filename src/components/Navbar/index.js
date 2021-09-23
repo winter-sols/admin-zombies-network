@@ -1,11 +1,10 @@
 import "./style.scss"
 
-const Navbar = ({ clickHandler }) => {
+const Navbar = ({ onLogoutHandler }) => {
   return (
-    <div className="navbar">
-      <button onClick={clickHandler} className="btn btn-warning navbar-logout">
-        Logout
-      </button>
+    <div className="navbar flex">
+      <div className="navbar-header">ZOMBIES NETWORK ADMIN</div>
+      <button onClick={onLogoutHandler}>Logout</button>
     </div>
   )
 }

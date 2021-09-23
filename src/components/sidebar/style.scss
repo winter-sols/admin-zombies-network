@@ -1,0 +1,63 @@
+@import "../../styles/variables.scss";
+
+.sidebar {
+  background-color: rgba($color: $black, $alpha: 0.8);
+  height: 100%;
+  width: 240px;
+  justify-content: space-between;
+  gap: 8px;
+  transition: 0.5s;
+
+  &-collapsed {
+    width: 96px;
+  }
+
+  &-item {
+    padding: 16px 0 16px 16px;
+    text-decoration: none;
+    color: $white;
+    text-align: center;
+    gap: 8px;
+    align-items: center;
+    transition: 0.5s;
+
+    & > span {
+      font-size: 15px;
+      transition: 0.5s;
+    }
+
+    &:hover {
+      color: $green;
+      padding-left: 32px;
+      background-color: rgba($color: $black, $alpha: 0.85);
+    }
+
+    &-selected {
+      border-right: 4px solid $green;
+      color: $green;
+      padding-left: 32px;
+      background-color: rgba($color: $black, $alpha: 0.85);
+    }
+
+    &-collapsed {
+      font-size: 0px !important;
+    }
+
+    &s {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  &-collapse {
+    width: 100%;
+    padding: 8px 0;
+    justify-content: center;
+    background-color: $black;
+    cursor: pointer;
+
+    & > svg {
+      color: $green;
+    }
+  }
+}

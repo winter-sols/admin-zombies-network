@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+
+.dashboard {
+  width: 100%;
+  overflow-y: hidden;
+
+  &-wrapper {
+    width: 100%;
+    height: calc(100% - 73px);
+  }
+}
