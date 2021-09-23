@@ -7,7 +7,7 @@ const Main = ({ info, errors, handleSubmit, onChangeHandler }) => (
         if (value[1]) return <li key={key}>{value[0] + ": " + value[1]}</li>
       })}
     </ul>
-    <form className="flex" onSubmit={onChangeHandler}>
+    <form className="flex" onSubmit={handleSubmit} method="post">
       <fieldset>
         <legend>Features:</legend>
         <div className="flex">
@@ -47,16 +47,6 @@ const Main = ({ info, errors, handleSubmit, onChangeHandler }) => (
             value={info.tc_play}
             id="tc_play"
             name="tc_play"
-            onChange={onChangeHandler}
-          ></textarea>
-        </div>
-        <div className="flex">
-          <label htmlFor="tc_owned">TombContents Owned: </label>
-          <textarea
-            className="form-control"
-            value={info.tc_owned}
-            id="tc_owned"
-            name="tc_owned"
             onChange={onChangeHandler}
           ></textarea>
         </div>
@@ -193,12 +183,12 @@ const Main = ({ info, errors, handleSubmit, onChangeHandler }) => (
       <fieldset>
         <legend>FAQs</legend>
         <div className="flex">
-          <label htmlFor="faq_question">Title: </label>
+          <label htmlFor="faq_title">Title: </label>
           <input
             className="form-control"
-            value={info.faq_question}
-            name="faq_question"
-            id="faq_question"
+            value={info.faq_title}
+            name="faq_title"
+            id="faq_title"
             onChange={onChangeHandler}
           />
         </div>
@@ -435,6 +425,7 @@ const Main = ({ info, errors, handleSubmit, onChangeHandler }) => (
             value={info.phase1}
             onChange={onChangeHandler}
           >
+            <option value="0">None</option>
             <option value="1">Graphic Designs Characters & Marketplace</option>
             <option value="2">Launch Social + Website</option>
             <option value="3">Audit Contract</option>

@@ -1,5 +1,3 @@
-import { Timestamp } from "@firebase/firestore"
-
 export default {
   userEmail: "admin@zombies.network",
   userPwd: "adminAdmin123!@#",

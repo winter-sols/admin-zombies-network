@@ -1,19 +1,13 @@
 // v9 compat packages are API compatible with v8 code
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import {
-  getAuth,
-  connectAuthEmulator,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const app = initializeApp({
+initializeApp({
   apiKey: "AIzaSyBrUHgfk7fNUItZuWczjng4Ud_LW-DK_8A",
   authDomain: "localhost",
   projectId: "zombie-bbfbe",

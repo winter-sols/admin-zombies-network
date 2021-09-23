@@ -41,6 +41,7 @@ const Dashboard = () => {
     co_title: "",
     co_subtitle: "",
     co_heading: "",
+    faq_title: "",
     faq_subtitle: "",
     faq_heading: "",
     faq_answer1: "",
@@ -60,9 +61,7 @@ const Dashboard = () => {
     faq_answer8: "",
     faq_question8: "",
   })
-  const [roadmap, setRoadmap] = useState({})
   const [errors, setErrors] = useState({})
-  const [cnt, setCnt] = useState(0)
 
   useEffect(async () => {
     if (!getLoggedIn()) history.push("login")
@@ -74,14 +73,7 @@ const Dashboard = () => {
       if ("value" in itemData)
         setInfo((prev) => ({ ...prev, [item.id]: itemData.value }))
     }
-    for (const item of roadmapSnap.docs) {
-      const itemData = item.data()
-      setRoadmap((prev) => {
-        prev[item.id] = itemData
-        return prev
-      })
-    }
-  }, [cnt])
+  }, [])
 
   const onLogoutHandler = (e) => {
     localStorage.removeItem("zombie_login")
@@ -102,6 +94,7 @@ const Dashboard = () => {
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target
+    console.log(value)
     setInfo({ ...info, [name]: value })
 
     // checkValidity(name, value)
@@ -113,13 +106,16 @@ const Dashboard = () => {
     // checkValidity()
 
     if (!Object.keys(errors).length) {
-      Object.entries(info).map(function (value, key) {
-        setDoc(doc(db, "configs", value[0]), {
-          value: value[1],
+      Promise.all(
+        Object.entries(info).map(function (value) {
+          return setDoc(doc(db, "configs", value[0]), {
+            value: value[1],
+          })
         })
+      ).then(() => {
+        alert("Updated")
       })
     }
-
     return false
   }
 
