@@ -12,7 +12,7 @@
     bottom: 18px;
     left: 12px;
     transition: 0.3s;
-    color: rgba($color: $black, $alpha: 0.6);
+    color: rgba($color: $green, $alpha: 0.6);
     cursor: text;
   }
 
@@ -20,8 +20,9 @@
   & > input[type="password"] {
     width: 100%;
     padding: 8px 12px;
+    background-color: $black;
     font-size: 16px;
-    border: 2px solid rgba($color: $black, $alpha: 0.2);
+    border: 2px solid rgba($color: $green, $alpha: 0.2);
     color: rgba($color: $green, $alpha: 0.8);
     border-radius: 16px;
 
@@ -34,7 +35,7 @@
         color: $green;
         bottom: 42px;
         font-size: 12px !important;
-        background-color: $white;
+        background-color: $black;
         text-shadow: 0 0 4px rgba($color: $green, $alpha: 0.6);
       }
     }
@@ -50,7 +51,7 @@
     color: $green;
     bottom: 42px;
     font-size: 12px !important;
-    background-color: $white;
+    background-color: $black;
     text-shadow: 0 0 4px rgba($color: $green, $alpha: 0.6);
   }
 }

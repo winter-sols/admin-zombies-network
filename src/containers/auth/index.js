@@ -41,10 +41,10 @@ const Auth = () => {
     <div className="login flex">
       <div className="login-title flex flex-column">
         <span>{isLogin ? "WELCOME TO ADMIN" : "RESET PASSWORD"}</span>
-        <p>or</p>
+        {/* <p>or</p>
         <div className="login-forget" onClick={onForgetHandler}>
           {isLogin ? "Forget Password?" : "Back to Login"}
-        </div>
+        </div> */}
       </div>
       <div className="login-decoration flex"></div>
       <div className="login-wrap flex flex-column">
